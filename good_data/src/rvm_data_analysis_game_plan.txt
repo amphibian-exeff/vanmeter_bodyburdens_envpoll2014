@@ -1,0 +1,87 @@
+rvm data analysis game plan 
+
+1. Descriptive statistics
+a) distribution fitting for response and explanatory variables of collected data
+--- body weight across 8 spp. (n=25)
+--- body burdens across 8 spp. and 5 pesticides (n=5)
+--- pchem properties across 5 pesticides and across all pesticides
+------ Kow, solubility, molecular mass
+------ Koc: lit, calculated, and measured
+--- measured soil concentrations across 5 pesticides
+b) lognormal transformations of collected data as appropriate
+c) calculation of derivative response and explanatory variables
+--- response
+------appfactor (no double log)
+------bcf/transfer coefficient
+------rations of spray/not spray body burdens
+--- explanatory
+------habitat factor (categorical)
+------species (categorical)
+------skin thickness (not f(bw))
+------surface area (f(bw))
+d) lognormal transformation of calculated variables as appropriate
+e) gcms v lcms (when both were run)
+------body burden
+------soil concentrations
+f) deal with the number of frogs- bodyweight2 = bodyweight/N
+g) surfacearea2 = f(bodyweight2)
+h) appfactor2 = f(bodyweight2,surfacearea2)
+
+2. regression/anova/ancova
+a) decisions on continuous/categorical variables (spp., habitat factor)
+- a single regression for these parent pesticides ('Total Atrazine', 'Total Fipronil', 'Total Triadimefon', 'Imidacloprid', 'Pendimethalin')
+- grab where good == 1
+------ koc, expKoc, logKow as single chemical predictors
+------ species or habitat classifier as categorical predictor
+------ appfactor ~ habitat + species + loglow + log?koc + henryslaw? + vaporpressure + human_spc? + molmass
+------ soil conc ~ app_rate + log?koc + henryslaw? + vapor pressure + logKow
+------ tissue conc ~ habitat + species + logkow + log?koc + henryslaw? + vaporpressure + human_spc? + apprate + bodyweight2 + surface area??
+------ BCF ~ habitat + species + logkow + log?koc + henryslaw? + vaporpressure + human_spc?
+------ with and without mole salamander
+b) variable selection
+---larger data set of pchem properties (where do the pesticides we selected fall on the pdf)
+---consideration of correlations between explanatory variables (plot)
+c) stepwise/combinatorics of anova/ancova
+d) variable importance measures
+---standardized regression coefficients
+---r_2 (stepwise)
+---adj r^2 (stepwise)
+---AIC (stepwise)
+---BIC (stepwise)
+e) model comparison
+---r_2
+---adj r^2
+---AIC
+---BIC
+
+3. machine learning approaches
+a) what are necessary sample sizes for data mining problems
+b) classification methods appropriate for ecotox audience or separate manuscript
+c) 5 out of 1200 problem
+
+4. inference to amphibian exposure and risk (statistical support for discussion of manuscript)
+a) can we reject (dominant, mammal-based) Kow approaches to predict dermal uptake
+--- does appfactor ~ logKow suck?
+b) is the predictive power of best models that we find generalizable to:
+--- other frogs
+------ is frog classifier important? hope not but ancova necessary
+--- other pesticides
+------ we have a problem
+--- other exposure situations (non-liquid spray)
+------ outside the scope of this study
+--- other soil types (lower OM)
+------ we have a problem, more experiments planned
+--- time of year
+------ good for pre-emergents before vegetative cover
+------ amphibian life cycle, when are they moving
+c) do the best models we find make physical sense (in a process sense?)
+--- is the direction of the coefficient monotonic
+--- does the sign of the coefficient make sense
+--- does the fit not suck and/or is it over-fitted?
+
+5. where are all the current analyses?
+lnallreg.csv the final word?
+/dropbox/amphib_dermalexposure/
+/dropbox/amphib_dermalexposure/output/
+/dropbox/amphib_dermalexposure/frog_reg/
+mjc

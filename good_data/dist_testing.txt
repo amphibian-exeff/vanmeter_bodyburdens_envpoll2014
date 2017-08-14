@@ -1,0 +1,586 @@
+> library(nortest)
+> dim(allfrog)
+[1] 474  26
+> colnames(allfrog)
+ [1] "Species"        "Sample"         "Chemical"       "Instrument"    
+ [5] "Application"    "good"           "app_rate_g_cm2" "TissueConc"    
+ [9] "SoilConc"       "logKow"         "BCF"            "bodyweight"    
+[13] "initialweight"  "Solat20C_mgL"   "Solat20C_gL"    "molmass_gmol"  
+[17] "Density_gcm3"   "AppFactor"      "SA_cm2"         "VapPrs_mPa"    
+[21] "Koc_Lit"        "Koc_Lab"        "HalfLife_day"   "HabFac"        
+[25] "Hlaw"           "X"             
+> 
+> unique.species <- unique(allfrog$Species)
+> unique.chemicals <- unique(allfrog$Chemical)
+> 
+> # bodyweight across 8 species
+> for(i in unique.species)
++ {
++   z <- subset(allfrog,Species==i)
++   x = z[,12]
++   x2 <- x[!is.na(x)]
++   x3 <- x[!is.na(x)]
++   s = paste(i, "Bodyweight", sep = " ")
++   print(s)
++   print(ad.test(x2))
++       
++   for (j in 1:length(x3))
++   {
++     if (x3[j] == 0)
++     {
++       x3[j] = 1
++     }
++   }
++   logx = log(x3)
++   print(ad.test(logx))
++ }
+[1] "Barking treefrog Bodyweight"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 1.0201, p-value = 0.01059
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.8985, p-value = 0.0212
+
+[1] "Fowlers toad Bodyweight"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 1.7382, p-value = 0.0001642
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 1.2597, p-value = 0.002552
+
+[1] "Gray treefrog Bodyweight"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 1.4146, p-value = 0.00106
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 1.4008, p-value = 0.001147
+
+[1] "Green treefrog Bodyweight"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 1.7072, p-value = 0.0002112
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.5249, p-value = 0.1775
+
+[1] "Leopard frog Bodyweight"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 1.7418, p-value = 0.0001549
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 1.2821, p-value = 0.002182
+
+[1] "Mole salamander Bodyweight"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 0.4467, p-value = 0.2675
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.7034, p-value = 0.0612
+
+[1] "Cricket frog Bodyweight"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 1.6567, p-value = 0.0002001
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 1.8608, p-value = 6.022e-05
+
+[1] "Narrowmouth toad Bodyweight"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 2.0827, p-value = 1.635e-05
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 1.9321, p-value = 3.959e-05
+
+> 
+> # body burdens across 8 species and 5 pesticides
+> for(i in unique.species)
++ {
++   z <- subset(allfrog,Species==i)
++   for(j in unique.chemicals)
++   {
++     zz = subset(z,Chemical==j)
++     x = zz[,8]
++     x2 <- x[!is.na(x)]
++     x3 <- x[!is.na(x)]
++     if (length(x2)>7)
++     {
++       s = paste(i,j,"tissue concentration", sep=" ")
++       print(s)
++       print(ad.test(x2))
++   
++       for (j in 1:length(x2))
++       {
++         if (x2[j] == 0)
++         {
++           x2[j] = 1
++         }
++       }
++       
++       logx = log(x2)
++       print(ad.test(logx))
++     }
++   }
++ }
+[1] "Barking treefrog Atrazine tissue concentration"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 0.5145, p-value = 0.1439
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.3308, p-value = 0.4415
+
+[1] "Barking treefrog Deisopropyl Atrazine tissue concentration"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 0.925, p-value = 0.0113
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.7805, p-value = 0.0278
+
+[1] "Barking treefrog Desethyl Atrazine tissue concentration"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 0.2839, p-value = 0.5517
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.4697, p-value = 0.1911
+
+[1] "Barking treefrog Fipronil tissue concentration"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 0.3561, p-value = 0.3809
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.3804, p-value = 0.3299
+
+[1] "Barking treefrog Fipronil-Sulfone tissue concentration"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 0.3696, p-value = 0.3516
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.3444, p-value = 0.4078
+
+[1] "Barking treefrog Imidacloprid tissue concentration"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 0.2578, p-value = 0.6348
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.2025, p-value = 0.8291
+
+[1] "Barking treefrog Pendimethalin tissue concentration"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 0.6995, p-value = 0.04606
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.6359, p-value = 0.06846
+
+[1] "Barking treefrog Total Atrazine tissue concentration"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 0.2176, p-value = 0.7804
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 1.3568, p-value = 0.0007724
+
+[1] "Barking treefrog Total Fipronil tissue concentration"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 0.3479, p-value = 0.3996
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 1.3944, p-value = 0.0006117
+
+[1] "Barking treefrog Total Triadimefon tissue concentration"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 0.1759, p-value = 0.8945
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.3586, p-value = 0.3753
+
+[1] "Barking treefrog Triadimefon tissue concentration"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 0.4255, p-value = 0.2512
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.2571, p-value = 0.6375
+
+[1] "Barking treefrog Triadimenol tissue concentration"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 0.3873, p-value = 0.3165
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.4526, p-value = 0.2126
+
+[1] "Green treefrog Atrazine tissue concentration"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 1.117, p-value = 0.003424
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 1.01, p-value = 0.006661
+
+[1] "Green treefrog Deisopropyl Atrazine tissue concentration"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 0.5652, p-value = 0.1064
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.4991, p-value = 0.1588
+
+[1] "Green treefrog Desethyl Atrazine tissue concentration"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 0.722, p-value = 0.04003
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.7173, p-value = 0.0412
+
+[1] "Green treefrog Fipronil tissue concentration"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 0.904, p-value = 0.01288
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.2563, p-value = 0.6403
+
+[1] "Green treefrog Fipronil-Sulfone tissue concentration"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 0.6142, p-value = 0.07837
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.3474, p-value = 0.4007
+
+[1] "Green treefrog Pendimethalin tissue concentration"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 1.2531, p-value = 0.00147
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.2677, p-value = 0.6009
+
+[1] "Green treefrog Total Atrazine tissue concentration"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 0.423, p-value = 0.255
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 1.6293, p-value = 0.0001426
+
+[1] "Green treefrog Total Fipronil tissue concentration"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 0.52, p-value = 0.1389
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 1.4153, p-value = 0.0005372
+
+[1] "Green treefrog Total Triadimefon tissue concentration"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 0.2104, p-value = 0.8043
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.3785, p-value = 0.3335
+
+[1] "Green treefrog Triadimefon tissue concentration"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 0.4694, p-value = 0.1915
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.2472, p-value = 0.6735
+
+[1] "Green treefrog Triadimenol tissue concentration"
+
+	Anderson-Darling normality test
+
+data:  x2 
+A = 0.5886, p-value = 0.09193
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.301, p-value = 0.514
+
+>     
+> # soil concentrations across chemicals
+> for(i in unique.chemicals)
++ {
++   z <- subset(allfrog,Chemical==i)
++   x = unique(z$SoilConc)
++   logx = log(x)
++   if (length(x)>7)
++   {
++     print(i)
++     print(ad.test(x))
++     print(ad.test(logx))
++   }
++ }
+[1] "Atrazine"
+
+	Anderson-Darling normality test
+
+data:  x 
+A = 1.5081, p-value = 0.000269
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 1.1127, p-value = 0.003228
+
+[1] "Fipronil"
+
+	Anderson-Darling normality test
+
+data:  x 
+A = 0.2157, p-value = 0.7655
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.1577, p-value = 0.9197
+
+[1] "Pendimethalin"
+
+	Anderson-Darling normality test
+
+data:  x 
+A = 1.3421, p-value = 0.0006666
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.9962, p-value = 0.006077
+
+[1] "Total Atrazine"
+
+	Anderson-Darling normality test
+
+data:  x 
+A = 3.4714, p-value = 7.285e-09
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.7725, p-value = 0.04059
+
+[1] "Total Fipronil"
+
+	Anderson-Darling normality test
+
+data:  x 
+A = 2.0046, p-value = 2.718e-05
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.578, p-value = 0.1191
+
+[1] "Total Triadimefon"
+
+	Anderson-Darling normality test
+
+data:  x 
+A = 1.3377, p-value = 0.001259
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.1658, p-value = 0.9269
+
+[1] "Triadimefon"
+
+	Anderson-Darling normality test
+
+data:  x 
+A = 1.0375, p-value = 0.005612
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 0.7155, p-value = 0.04168
+
+[1] "Triadimenol"
+
+	Anderson-Darling normality test
+
+data:  x 
+A = 2.2676, p-value = 2.763e-06
+
+
+	Anderson-Darling normality test
+
+data:  logx 
+A = 1.6743, p-value = 0.0001079
